@@ -17,7 +17,11 @@ import androidx.compose.ui.unit.dp
 @Composable
 internal fun ScrollableContent() {
 	val list = listOf(1..20).flatten()
-	LazyColumn() {
+	LazyColumn(
+		Modifier.padding(
+			bottom = 56.dp // We need to reduce content height by the height of collapsed content
+		)
+	) {
 		items(
 			items = list,
 			itemContent = { id ->

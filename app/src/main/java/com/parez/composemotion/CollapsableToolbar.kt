@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FractionalThreshold
-import androidx.compose.material.Text
 import androidx.compose.material.rememberSwipeableState
 import androidx.compose.material.swipeable
 import androidx.compose.runtime.Composable
@@ -23,11 +22,11 @@ import androidx.compose.ui.unit.Velocity
 @ExperimentalMaterialApi
 @Composable
 fun CollapsableToolbar() {
-	val swipingState = rememberSwipeableState(initialValue = States.EXPANDED)
+	val swipingState = rememberSwipeableState(initialValue = SwipingStates.EXPANDED)
 
 	BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
 
-		val heightInPx = with(LocalDensity.current) { maxHeight.toPx() }
+		val heightInPx = with(LocalDensity.current) { maxHeight.toPx() } // Get height of screen
 		val connection = remember {
 			object : NestedScrollConnection {
 
@@ -71,25 +70,38 @@ fun CollapsableToolbar() {
 					thresholds = { _, _ -> FractionalThreshold(0.5f) },
 					orientation = Orientation.Vertical,
 					anchors = mapOf(
-						0f to States.COLLAPSED,
-						heightInPx to States.EXPANDED,
+						// Maps anchor points (in px) to states
+						0f to SwipingStates.COLLAPSED,
+						heightInPx to SwipingStates.EXPANDED,
 					)
 				)
 				.nestedScroll(connection)
 		) {
+//		var animateToEnd by remember { mutableStateOf(false) }
+//		val progress by animateFloatAsState(
+//			targetValue = if (animateToEnd) 1f else 0f,
+//			animationSpec = tween(1000)
+//		)
 			Column() {
-				Text(text = swipingState.progress.fraction.toString())
-				MotionLayoutHeader(swipingState = swipingState) {
+//				Text(text = "From: ${swipingState.progress.from}", modifier = Modifier.padding(16.dp))
+//				Text(text = "To: ${swipingState.progress.to}", modifier = Modifier.padding(16.dp))
+//				Text(text = swipingState.progress.fraction.toString(), modifier = Modifier.padding(16.dp))
+				MotionLayoutHeader(progress =  if (swipingState.progress.to == SwipingStates.COLLAPSED) swipingState.progress.fraction else 1f - swipingState.progress.fraction) {
 					ScrollableContent()
 				}
 			}
+//		Button(onClick = { animateToEnd = animateToEnd.not() },
+//			Modifier
+//				.align(Alignment.BottomCenter)
+//				.padding(16.dp)) {
+//			Text(text = if (!animateToEnd) "Collapse" else "Expand")
+//		}
 		}
 	}
-
 }
 
-enum class States {
+// Helper class defining swiping State
+enum class SwipingStates {
 	EXPANDED,
 	COLLAPSED
-
 }
