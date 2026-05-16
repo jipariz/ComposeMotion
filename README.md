@@ -18,24 +18,24 @@ As the list scrolls, the header transitions between expanded and collapsed state
 
 Main implementation files are in:
 
-- `/home/runner/work/ComposeMotion/ComposeMotion/app/src/main/java/com/parez/composemotion/MainActivity.kt`  
+- `app/src/main/java/com/parez/composemotion/MainActivity.kt`  
   App entry point that renders `CollapsableToolbar()`.
-- `/home/runner/work/ComposeMotion/ComposeMotion/app/src/main/java/com/parez/composemotion/CollapsableToolbar.kt`  
+- `app/src/main/java/com/parez/composemotion/CollapsableToolbar.kt`  
   Owns swipe state, nested scroll behavior, and collapse/expand progress.
-- `/home/runner/work/ComposeMotion/ComposeMotion/app/src/main/java/com/parez/composemotion/MotionLayoutHeader.kt`  
+- `app/src/main/java/com/parez/composemotion/MotionLayoutHeader.kt`  
   Defines start/end `ConstraintSet`s and drives MotionLayout interpolation.
-- `/home/runner/work/ComposeMotion/ComposeMotion/app/src/main/java/com/parez/composemotion/ScrollableContent.kt`  
+- `app/src/main/java/com/parez/composemotion/ScrollableContent.kt`  
   Renders the scrolling `LazyColumn` content under the header.
 
 Theme files are in:
 
-- `/home/runner/work/ComposeMotion/ComposeMotion/app/src/main/java/com/parez/composemotion/ui/theme`
+- `app/src/main/java/com/parez/composemotion/ui/theme`
 
 ## Build and run
 
 This is a standard Android Gradle project.
 
-1. Open `/home/runner/work/ComposeMotion/ComposeMotion` in Android Studio.
+1. Open the project root in Android Studio.
 2. Sync Gradle.
 3. Run the `app` configuration on an emulator or device.
 
